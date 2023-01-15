@@ -36,7 +36,7 @@ const Footer = () => {
                             src={linkedin}
                             className='social-logo'
                             alt='Ir a mi LinkedIn'
-                            title='Ir a mi Github'
+                            title='Ir a mi LinkedIn'
                         />{" "}
                     </a>
                 </div>
