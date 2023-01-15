@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=Meddon&display=swap");
+
+body {
+    overflow-x: hidden;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.hero::before {
+    content: "";
+    background: url("./assets/img/pizza.jpg");
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: brightness(60%);
+}
+
+.hero-content {
+    position: relative;
+}
+
+.title {
+    font-family: "Meddon", cursive;
+    margin-top: -2.5rem;
+    color: #fff;
+    font-size: 3.5rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 40px #00ffff,
+        0 0 70px #00ffff, 0 0 80px #00ffff, 0 0 100px #00ffff;
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.title:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 40px #ff00de,
+        0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de;
+}
+
+.first-letter {
+    font-size: 5.5rem;
+}
+
+.subtitle {
+    font-size: 2rem;
+    margin-top: 2.5rem;
+}
+
+.brand-text {
+    padding-left: 0.5rem;
+    font-family: "Meddon", cursive;
+    font-weight: bold;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 1), 0 0 5px #00ffff, 0 0 12px #00ffff;
+
+}
+
+.active {
+    text-shadow: 0 0 1px rgba(255, 255, 255, 1), 0 0 5px #00ffff, 0 0 12px #00ffff;
+}
+
+.hover:hover {
+    text-shadow: 0 0 1px rgba(255, 255, 255, 1), 0 0 5px #ff00de, 0 0 12px #ff00de;
+}
+
+.card-img {
+    margin-top: 0.7rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.footer {
+    height: 4rem;
+    width: 100vw;
+}
+
+.social-logo {
+    height: 40px;
+}
+
+/* Inicio animación flecha */
+.arrow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.chevron {
+    position: absolute;
+    width: 2.1rem;
+    height: 0.8rem;
+    opacity: 0;
+    transform: scale(0.3);
+    animation: move-chevron 3s ease-out infinite;
+}
+
+.chevron:first-child {
+    animation: move-chevron 3s ease-out 1s infinite;
+}
+
+.chevron:nth-child(2) {
+    animation: move-chevron 3s ease-out 2s infinite;
+}
+
+.chevron:before,
+.chevron:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background: #fff;
+}
+
+.chevron:before {
+    left: 0;
+    transform: skewY(30deg);
+}
+
+.chevron:after {
+    right: 0;
+    width: 50%;
+    transform: skewY(-30deg);
+}
+
+@keyframes move-chevron {
+    25% {
+        opacity: 1;
+    }
+
+    33.3% {
+        opacity: 1;
+        transform: translateY(2.28rem);
+    }
+
+    66.6% {
+        opacity: 1;
+        transform: translateY(3.12rem);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(4.8) scale(0.5);
+    }
+}
+
+/* Término animación flecha */
+
+/* media queries */
+@media (max-width: 956px) {
+    .arrow-container {
+        height: 40%;
+    }
+}
+
+@media (max-width: 516px) {
+    .hero {
+        padding-top: 4rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 604px) {
+    .arrow-container {
+        height: 10%;
+    }
+}
