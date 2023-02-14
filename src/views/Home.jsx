@@ -5,21 +5,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const Home = () => {
-    const { state, setState, pizzasAgregadas, setPizzasAgregadas } =
-        useContext(carritoContext);
-
+    const { state, pizzasAgregadas, addToCart } = useContext(carritoContext);
     const navigate = useNavigate();
-
-    const addToCart = (pizza) => {
-        if (pizzasAgregadas.includes(pizza.id)) {
-            return;
-        }
-        setState((prevState) => {
-            const newCart = [...prevState.cart, { ...pizza, cantidad: 1 }];
-            return { ...prevState, cart: newCart };
-        });
-        setPizzasAgregadas([...pizzasAgregadas, pizza.id]);
-    };
 
     return (
         <>
@@ -72,8 +59,13 @@ const Home = () => {
                                     className='btn btn-danger'
                                     type='button'
                                     onClick={() => addToCart(pizza)}
+                                    disabled={pizzasAgregadas.includes(
+                                        pizza.id
+                                    )}
                                 >
-                                    Agregar
+                                    {pizzasAgregadas.includes(pizza.id)
+                                        ? "Agregado al carrito"
+                                        : "Agregar"}
                                 </button>
                             </div>
                         </div>

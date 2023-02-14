@@ -4,14 +4,14 @@ import { useContext } from "react";
 import pizzaIcon from "../assets/img/pizza-icon.png";
 
 const Navbar = () => {
-    const { state, setTotal } = useContext(carritoContext);
+    const { state } = useContext(carritoContext);
     const setActiveClass = ({ isActive }) => (isActive ? "active" : "inactive");
-
+    
+    // Calcula el total de la compra
     const total = state.cart.reduce(
         (acc, item) => acc + item.price * item.cantidad,
         0
     );
-    setTotal(total);
 
     return (
         <nav className='navbar navbar-dark bg-dark px-5 fixed-top'>

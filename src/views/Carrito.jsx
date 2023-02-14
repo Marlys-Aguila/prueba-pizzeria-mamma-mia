@@ -1,15 +1,31 @@
 import carritoContext from "../contexts/ContextCarrito";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Carrito = () => {
-    const { state, total, increaseQuantity, decreaseQuantity, removePizza } =
+    const { state, increaseQuantity, decreaseQuantity, removePizza } =
         useContext(carritoContext);
 
     const navigate = useNavigate();
 
+    // Calcula el total de la compra
+    const total = state.cart.reduce(
+        (acc, item) => acc + item.price * item.cantidad,
+        0
+    );
+
+    // Guarda en local storage las pizzas agregadas al carrito. En React no se puede usar localStorage directamente, por eso se usa useEffect.
+    useEffect(() => {
+        const pizzasAgregadas = state.cart.map((pizza) => pizza.id);
+        localStorage.setItem(
+            "pizzasAgregadas",
+            JSON.stringify(pizzasAgregadas)
+        );
+    }, []);
+
     return (
         <div className='container my-5 pt-4 d-flex flex-column justify-content-center align-items-center'>
+        {/* Si el carrito está vacío, muestra un mensaje y un botón para volver a Home. Si no, muestra el carrito. */}
             {state.cart.length === 0 ? (
                 <>
                     <h4 className='mt-4'>No hay productos en el carrito</h4>
@@ -23,15 +39,14 @@ const Carrito = () => {
             ) : (
                 <>
                     <h2>Carrito</h2>
+                    {/* Mapea el carrito y muestra cada pizza agregada */}
                     {state.cart.map((pizza) => (
                         <div
-                            className='border border-success-subtle pt-2 pb-1 px-2 mb-2 '
+                            key={pizza.id}
+                            className='border border-success-subtle pt-2 pb-1 px-2 mb-2'
                             style={{ width: "750px" }}
                         >
-                            <div
-                                key={pizza.id}
-                                className='row align-items-center'
-                            >
+                            <div className='row align-items-center'>
                                 <div className='col'>
                                     <img
                                         src={pizza.img}
@@ -46,9 +61,7 @@ const Carrito = () => {
                                 </div>
                                 <div className='col'>
                                     <button
-                                        onClick={() => {
-                                            decreaseQuantity(pizza);
-                                        }}
+                                        onClick={() => decreaseQuantity(pizza)}
                                         className='btn btn-outline-light btn btn-lg p-0'
                                         title='Disminuir cantidad'
                                     >
@@ -58,9 +71,7 @@ const Carrito = () => {
                                         {pizza.cantidad}
                                     </span>
                                     <button
-                                        onClick={() => {
-                                            increaseQuantity(pizza);
-                                        }}
+                                        onClick={() => increaseQuantity(pizza)}
                                         className='btn btn-outline-light btn btn-lg p-0'
                                         title='Aumentar cantidad'
                                     >
@@ -69,9 +80,7 @@ const Carrito = () => {
                                 </div>
                                 <div className='col'>
                                     <button
-                                        onClick={() => {
-                                            removePizza(pizza);
-                                        }}
+                                        onClick={() => removePizza(pizza)}
                                         className='btn btn-outline-danger'
                                         title='Eliminar pizza del carrito'
                                     >
@@ -80,7 +89,6 @@ const Carrito = () => {
                                 </div>
                                 <div className='col-4'>
                                     <span>
-                                        {" "}
                                         ${pizza.price} x {pizza.cantidad}{" "}
                                         unidad/es = $
                                         {pizza.price * pizza.cantidad}
@@ -93,8 +101,7 @@ const Carrito = () => {
                         <h4 className='pt-3'>Total a pagar: ${total}</h4>
                         {total > 0 && (
                             <button className='btn btn-primary btn-lg ms-3 mt-2'>
-                                {" "}
-                                Ir a pagar{" "}
+                                Ir a pagar
                             </button>
                         )}
                     </div>
